@@ -30,7 +30,9 @@ const start = async () => {
     const server = new ApolloServer({
         typeDefs,
         resolvers,
-        context: () => { db }
+        context: () => {
+            return { db }
+        }
     })
 
     server.applyMiddleware({ app })

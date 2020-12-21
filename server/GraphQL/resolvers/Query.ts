@@ -1,5 +1,6 @@
-import { test } from './post/index'
+import { getAllPosts, getIdByPost } from './post/index'
 
 export {
-    test
+    getAllPosts,
+    getIdByPost
 }

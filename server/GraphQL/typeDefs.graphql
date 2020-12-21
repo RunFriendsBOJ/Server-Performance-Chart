@@ -1,3 +1,10 @@
 type Query{
-    test: String
+    getAllPosts: [Post]
+    getIdByPost(id:Int!): Post
+}
+
+type Post{
+    id: Int
+    title: String
+    content: String
 }

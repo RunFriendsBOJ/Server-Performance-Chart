@@ -36,6 +36,7 @@ const start = async () => {
     server.applyMiddleware({ app })
 
     app.get('/', expressPlayground({ endpoint: '/graphql' }))
+    app.use(cors(corsOptions))
 
     const httpServer = createServer(app)
     server.installSubscriptionHandlers(httpServer)

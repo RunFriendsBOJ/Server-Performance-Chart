@@ -17,6 +17,7 @@ const options = {
 }
 app.use('', routes)
 
-spdy.createServer(options, app).listen(process.env.PROTO_PORT, () => {
-    console.log(`Server On https://localhost:${process.env.PROTO_PORT}`)
+const port = process.env.PROTO_PORT || 4000
+spdy.createServer(options, app).listen(port, () => {
+    console.log(`Server On https://localhost:${port}`)
 })

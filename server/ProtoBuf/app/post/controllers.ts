@@ -4,7 +4,7 @@ const { Posts, Post } = require('../../config/proto/protobuf')
 
 const allPost = async (req: Request, res: Response) => {
     const db = await mongodb().get()
-    const obj: object = {
+    const obj = {
         items: await db.collection('post').find({}).toArray()
     }
     const buffer: Buffer = Posts.encode(obj)
@@ -13,7 +13,7 @@ const allPost = async (req: Request, res: Response) => {
 
 const getPost = async (req: Request, res: Response) => {
     const db = await mongodb().get()
-    let item: object = await db.collection('post').findOne({ id: ~~req.params.id })
+    let item = await db.collection('post').findOne({ id: ~~req.params.id })
     const buffer: Buffer = Post.encode(item)
     res.status(200).send(buffer)
 }

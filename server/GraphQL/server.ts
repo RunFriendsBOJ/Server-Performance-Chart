@@ -11,7 +11,7 @@ import dotenv from 'dotenv'
 const envPath = path.join(__dirname, "../.env")
 dotenv.config({ path: envPath })
 
-import resolvers from './resolvers'
+import * as resolvers from './resolvers/index'
 const typeDefs = readFileSync('./typeDefs.graphql', 'utf-8')
 
 const app = express()
@@ -28,6 +28,22 @@ const start = async () => {
         optionsSuccessStatus: 200
     }
     const server = new ApolloServer({
+        typeDefs,
+        resolvers,
+        context: () => { db }
+    })
 
+    server.applyMiddleware({ app })
+
+    app.get('/', expressPlayground({ endpoint: '/graphql' }))
+
+    const httpServer = createServer(app)
+    server.installSubscriptionHandlers(httpServer)
+
+    httpServer.timeout = 5000
+    httpServer.listen({ port: process.env.GQL_PORT }, () => {
+        console.log(`GQL Server Running at http://localhost:${process.env.GQL_PORT}${server.graphqlPath}`)
     })
 }
+
+start()

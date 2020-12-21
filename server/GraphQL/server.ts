@@ -1,4 +1,4 @@
-import { ApolloServer, PubSub } from 'apollo-server-express'
+import { ApolloServer } from 'apollo-server-express'
 import express from 'express'
 import expressPlayground from 'graphql-playground-middleware-express'
 import { MongoClient } from 'mongodb'

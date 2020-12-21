@@ -13,13 +13,15 @@
     "pm2": "^4.5.1",
     "protocol-buffers": "^4.2.0",
     "spdy": "^4.0.2",
+    "ts-node": "^9.1.1",
     "yarn": "^1.22.10"
   },
   "resolutions": {
     "**/apollo-server-core/graphql-upload": "^11.0.0"
   },
   "scripts": {
-    "test": "npm install yarn && yarn install && pm2 install typescript && cd GraphQL && pm2 start server.ts --name GraphQL && cd - && cd ProtoBuf && pm2 start server.ts --name ProtoBuf && cd - && cd REST && pm2 start server.ts --name REST"
+    "set": "npm install yarn && yarn install && pm2 install typescript",
+    "start": "cd graphql && pm2 start server.ts --name GQL && cd - && cd protobuf && pm2 start server.ts --name protobuf"
   },
   "author": "",
   "license": "ISC",

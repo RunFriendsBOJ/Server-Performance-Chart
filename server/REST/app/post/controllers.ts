@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import mongodb from '../../config/connectDB'
+import mongodb from '../../../config/connectDB'
 
 const allPost = async (req: Request, res: Response) => {
     const db = await mongodb().get()

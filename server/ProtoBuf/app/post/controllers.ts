@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
-import mongodb from '../../config/connectDB'
-const { Posts, Post } = require('../../config/proto/protobuf')
+import mongodb from '../../../config/connectDB'
+const { Posts, Post } = require('../../../config/proto/protobuf')
 
 const allPost = async (req: Request, res: Response) => {
     const db = await mongodb().get()

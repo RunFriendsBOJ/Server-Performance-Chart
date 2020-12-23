@@ -6,10 +6,10 @@ import dotenv from 'dotenv'
 import routes from './routes'
 dotenv.config({ path: '../.env' })
 
-import mongodb from './config/connectDB'
+import mongodb from '../config/connectDB'
 mongodb().get()
 const app = express()
-const sslPath = path.join(__dirname, '/config')
+const sslPath = path.join(__dirname, '../config')
 const options = {
     key: fs.readFileSync(`${sslPath}/server.key`, 'utf-8'),
     cert: fs.readFileSync(`${sslPath}/server.crt`, 'utf-8'),

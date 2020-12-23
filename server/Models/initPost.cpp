@@ -65,7 +65,7 @@ int main()
     sample1(fout);
     sample2(fout);
 
-    for (int i = 1; i <= 9997; i++)
+    for (int i = 1; i <= 99997; i++)
     {
         writePost(fout);
         fout << ",";

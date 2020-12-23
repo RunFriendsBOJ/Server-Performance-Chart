@@ -1,4 +1,4 @@
-import { getAllPosts, getIdByPost } from './post/index'
+import { getAllPosts, getIdByPost } from './post'
 
 export {
     getAllPosts,

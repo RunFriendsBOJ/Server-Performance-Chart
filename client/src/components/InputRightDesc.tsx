@@ -21,6 +21,7 @@ export default function InputRightDesc({ description, value, onChange, children,
                 onChange={onChange}
                 value = {value}
                 children={children}
+                className="text-right"
             />
             <InputGroup.Append>
                 <InputGroup.Text id="basic-addon2">{description}</InputGroup.Text>

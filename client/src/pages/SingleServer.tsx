@@ -60,13 +60,13 @@ async function gqlQueryByid(id : number){
 
 async function gqlQueryAll(){
     const query = `
-        query getAllPosts(){
-            getAllPosts() {
-                id
-                title
-                content
-            }
+    query {
+        getAllPosts{
+            id
+            title
+            content
         }
+    }
     `
     return fetchAPI(Endpoints.GraphQL, query, HttpMethod.Post)
 }
@@ -95,6 +95,7 @@ const SingleServer = () => {
         gqlQueryAll()
             .then((response) => console.log(response.json()))
             .then(() => setisRequesting(false))
+            .catch((error) => console.log(error))
     }, [isRequesting])
 
     return (

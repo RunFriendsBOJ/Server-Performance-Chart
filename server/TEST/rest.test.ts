@@ -29,8 +29,8 @@ const restTest = () => describe('REST Server Test', () => {
         const data = await response.json()
         assert.strictEqual(response.status, 200)
         assert.strictEqual(data.items[0].id, 1)
-        assert.strictEqual(data.items.length, 100000)
-    })
+        assert.strictEqual(data.items.length, 10000)
+    }, 1000000)
 })
 
 export { restTest }

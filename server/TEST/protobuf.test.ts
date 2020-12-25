@@ -26,7 +26,7 @@ const protobufTest = () => describe('ProtoBuf Server Test', () => {
     })
 
     it(`ProtoBuf Server API TEST-2`, async () => {
-        const response = await fetch(server + "/post/10000", {
+        const response = await fetch(server + "/post/1000", {
             agent,
             method: 'GET'
         })
@@ -35,7 +35,7 @@ const protobufTest = () => describe('ProtoBuf Server Test', () => {
         assert.strictEqual(response.status, 200)
         assert(Buffer.isBuffer(buffer))
         const obj = Post.decode(buffer)
-        assert.strictEqual(obj.id, 10000)
+        assert.strictEqual(obj.id, 1000)
     })
 
     it('ProtoBuf Server API TEST-3', async () => {
@@ -47,8 +47,8 @@ const protobufTest = () => describe('ProtoBuf Server Test', () => {
         assert(Buffer.isBuffer(buffer))
         const obj = Posts.decode(buffer)
         assert.strictEqual(obj.items[0].id, 1)
-        assert.strictEqual(obj.items.length, 100000)
-    })
+        assert.strictEqual(obj.items.length, 10000)
+    }, 1000000)
 
 })
 

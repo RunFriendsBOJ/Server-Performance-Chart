@@ -3,26 +3,8 @@
 #include <fstream>
 
 using namespace std;
-string s;
 int id = 1;
-void sample1(ostream &fout)
-{
-    fout << "{";
-    fout << "\"id\":" << id++ << ",";
-    fout << "\"title\":\"Hello, World!\",";
-    fout << "\"content\":\"Hello Pukuba This Hawawa!\"";
-    fout << "},";
-    return;
-}
 
-void sample2(ostream &fout)
-{
-    fout << "{";
-    fout << "\"id\":" << id++ << ",";
-    fout << "\"title\":\"Second Post!\",";
-    fout << "\"content\":\"Pukuba's Second Post...! >.<! \"";
-    fout << "},";
-}
 char addedChar()
 {
     int randomNumber = rand() % 61;
@@ -62,10 +44,7 @@ int main()
     fout.open("post.db.json");
     fout << "[";
 
-    sample1(fout);
-    sample2(fout);
-
-    for (int i = 1; i <= 99997; i++)
+    for (int i = 1; i < 10000; i++)
     {
         writePost(fout);
         fout << ",";

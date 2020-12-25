@@ -4,10 +4,11 @@ import { MongoClient } from 'mongodb'
 
 const envPath = path.join(__dirname, "../../.env")
 dotenv.config({ path: envPath })
+let db: any = null
+let instance: number = 0
 
 const connectDB = () => {
-    let db: any = null
-    let instance: number = 0
+
 
     const connect = async () => {
         try {
@@ -24,11 +25,10 @@ const connectDB = () => {
 
     const get = async () => {
         try {
-            instance++
+            ++instance
             console.log(`DB called ${instance} times`)
 
             if (db != null) {
-                console.log(`db connection is already alive`)
                 return db
             } else {
                 console.log(`getting new db connection`)

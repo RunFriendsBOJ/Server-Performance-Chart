@@ -15,6 +15,7 @@ const typeDefs = readFileSync('./typeDefs.graphql', 'utf-8')
 
 const app = express()
 
+
 const start = async () => {
     const db = await mongodb().get()
     const corsOptions = {
@@ -24,8 +25,9 @@ const start = async () => {
     const server = new ApolloServer({
         typeDefs,
         resolvers,
-        context: () => {
-            return { db }
+        context: ({ req }: { req: express.Request }) => {
+            const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
+            return { db, ip }
         }
     })
 

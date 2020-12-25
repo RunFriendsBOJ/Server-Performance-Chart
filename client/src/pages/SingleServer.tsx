@@ -1,6 +1,8 @@
 import React from 'react'
+import { useEffect } from 'react'
 import { useState } from 'react'
 import { Button, Col, Container, Row } from 'react-bootstrap'
+import { Endpoints, fetchAPI, HttpMethod } from '../action/fetch'
 import Chart from '../components/Chart'
 import InputRightDesc from '../components/InputRightDesc'
 
@@ -43,16 +45,57 @@ const testData = {
     ],
 }
 
+async function gqlQueryByid(id : number){
+    const query = `
+        query getIdByPost(id : $id){
+            getIdByPost($id : id) {
+                id
+                title
+                content
+            }
+        }
+    `
+    return fetchAPI(Endpoints.GraphQL, query, HttpMethod.Post)
+}
+
+async function gqlQueryAll(){
+    const query = `
+        query getAllPosts(){
+            getAllPosts() {
+                id
+                title
+                content
+            }
+        }
+    `
+    return fetchAPI(Endpoints.GraphQL, query, HttpMethod.Post)
+}
+
+interface queryResult {
+    id?: number,
+    title?: string,
+    content?: string
+}
+
 const SingleServer = () => {
     const [clientCnt, setClientCnt] = useState('')
     const [requestCnt, setRequestCnt] = useState('')
+    const [isRequesting, setisRequesting] = useState(false)
+
+    const [queryResults, setQueryResults] = useState<queryResult[]>([])
 
     const [selectedServer, setSelectedServer] = useState('1')
     const servers = [
-        { name: 'gql', value: '1' },
-        { name: 'restapi', value: '2' },
-        { name: 'protobuf', value: '3' },
+        { name: 'GraphQL', value: '1' },
+        { name: 'ProtoBuf', value: '2' },
+        { name: 'RestAPI', value: '3' },
     ]
+
+    useEffect(()=> {
+        gqlQueryAll()
+            .then((response) => console.log(response.json()))
+            .then(() => setisRequesting(false))
+    }, [isRequesting])
 
     return (
         <Container>
@@ -72,9 +115,10 @@ const SingleServer = () => {
                     <OptionButton options={servers} onChange={(e: buttonChange) => setSelectedServer(e.target.value)} selectedValue={selectedServer}/>
                 </Col>
                 <Col md={{offset:0.1}}>
-                    <Button variant="outline-dark" block>Test</Button>
+                    <Button variant="outline-dark" block onClick={() => {setisRequesting(true)}}>Test</Button>
                 </Col>
             </Row>
+            client : {clientCnt}, request : {requestCnt}, selectedServer : {servers.find(({value})=>{ return value === selectedServer})?.name}, queryStatus : {isRequesting ? '로딩중' : '끝남'}
         </Container>
     )
 }

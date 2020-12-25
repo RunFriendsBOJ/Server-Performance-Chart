@@ -1,5 +1,8 @@
 # Server
 
+`NodeJS:12 ,MongoDB:3.6, g++ 을 필요로합니다.`
+
+
 GQL: `http://localhost:3000/graphql`
 
 ProtoBuf: `https://localhost:4000`

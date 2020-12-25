@@ -42,7 +42,7 @@
   },
   "scripts": {
     "set": "npm install yarn && yarn install ",
-    "start": "pm2 install typescript && cd graphql && pm2 start server.ts --name GQL && cd - && cd protobuf && pm2 start server.ts --name ProtoBuf && cd - && cd rest && pm2 start server.ts --name Rest",
+    "start": "pm2 install typescript && cd ./graphql && pm2 start server.ts --name GQL && cd ../protobuf && pm2 start server.ts --name ProtoBuf && cd ../rest && pm2 start server.ts --name Rest",
     "test": "jest"
   },
   "author": "",

@@ -21,6 +21,7 @@
   "dependencies": {
     "@types/jest": "^26.0.19",
     "apollo-server-express": "^2.19.0",
+    "axios": "^0.21.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "graphql-playground-middleware-express": "^1.7.22",
@@ -40,8 +41,8 @@
     "**/apollo-server-core/graphql-upload": "^11.0.0"
   },
   "scripts": {
-    "set": "npm install yarn && yarn install ",
-    "start": "pm2 install typescript && cd graphql && pm2 start server.ts --name GQL && cd - && cd protobuf && pm2 start server.ts --name protobuf",
+    "set": "npm install yarn && yarn install && cd Models && g++ -o initPost.out initPost.cpp && ./initPost.out && ts-node initDB.ts",
+    "start": "pm2 install typescript && cd ./GraphQL && pm2 start server.ts --name GQL && cd ../ProtoBuf && pm2 start server.ts --name ProtoBuf && cd ../REST && pm2 start server.ts --name Rest",
     "test": "jest"
   },
   "author": "",

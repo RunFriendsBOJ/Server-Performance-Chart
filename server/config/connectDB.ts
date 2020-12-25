@@ -1,7 +1,6 @@
 import path from 'path'
 import dotenv from 'dotenv'
-import mongodb from 'mongodb'
-const MongoClient = mongodb.MongoClient
+import { MongoClient } from 'mongodb'
 
 const envPath = path.join(__dirname, "../../.env")
 dotenv.config({ path: envPath })

@@ -4,7 +4,7 @@ import path from 'path'
 import fs from 'fs'
 
 const envPath = path.join(__dirname, "../.env")
-const jsonBuf = fs.readFileSync('./post.json', 'utf-8')
+const jsonBuf = fs.readFileSync('./post.db.json', 'utf-8')
 const json = JSON.parse(jsonBuf)
 dotenv.config({ path: envPath })
 

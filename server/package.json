@@ -41,7 +41,7 @@
     "**/apollo-server-core/graphql-upload": "^11.0.0"
   },
   "scripts": {
-    "set": "npm install yarn && yarn install ",
+    "set": "npm install yarn && yarn install && cd Models && g++ -o initPost.out initPost.cpp && ./initPost.out && ts-node initDB.ts",
     "start": "pm2 install typescript && cd ./GraphQL && pm2 start server.ts --name GQL && cd ../ProtoBuf && pm2 start server.ts --name ProtoBuf && cd ../REST && pm2 start server.ts --name Rest",
     "test": "jest"
   },

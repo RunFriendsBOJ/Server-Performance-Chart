@@ -1,5 +1,4 @@
 import React from 'react'
-import { useEffect } from 'react'
 import { useState } from 'react'
 import { Button, Col, Container, Row } from 'react-bootstrap'
 import { Endpoints, fetchAPI, HttpMethod } from '../action/fetch'
@@ -13,6 +12,7 @@ import { buttonChange, inputChange } from '../types/events'
 input
     request count
     client count
+    request Server
     request type
 output
     response time
@@ -45,7 +45,7 @@ const testData = {
     ],
 }
 
-async function gqlQueryByid(id : number){
+async function gqlQueryByid(id: number) {
     const query = `
         query getIdByPost(id : $id){
             getIdByPost($id : id) {
@@ -58,7 +58,7 @@ async function gqlQueryByid(id : number){
     return fetchAPI(Endpoints.GraphQL, query, HttpMethod.Post)
 }
 
-async function gqlQueryAll(){
+async function gqlQueryAll() {
     const query = `
     query {
         getAllPosts{
@@ -72,18 +72,27 @@ async function gqlQueryAll(){
 }
 
 interface queryResult {
-    id?: number,
-    title?: string,
-    content?: string
+    id: number
+    startTime?: number
+    endTime?: number
+    elaspedTime?: number
+    requestState: RequestState
+}
+
+enum RequestState {
+    loading = 'loading',
+    end = 'end',
 }
 
 const SingleServer = () => {
+    // input 입력용
     const [clientCnt, setClientCnt] = useState('')
     const [requestCnt, setRequestCnt] = useState('')
-    const [isRequesting, setisRequesting] = useState(false)
-
+    // request가 끝났는지 확인용
+    const [requestState, setRequestState] = useState<RequestState>(RequestState.end)
+    // query결과
     const [queryResults, setQueryResults] = useState<queryResult[]>([])
-
+    // 선택한 서버
     const [selectedServer, setSelectedServer] = useState('1')
     const servers = [
         { name: 'GraphQL', value: '1' },
@@ -91,37 +100,63 @@ const SingleServer = () => {
         { name: 'RestAPI', value: '3' },
     ]
 
-    useEffect(()=> {
-        gqlQueryAll()
-            .then((response) => console.log(response.json()))
-            .then(() => setisRequesting(false))
-            .catch((error) => console.log(error))
-    }, [isRequesting])
+    const testServer = () => {
+        let responseCnt : number = 0
+        const reqCnt = Number(requestCnt) || 10;
+        // queryResults를 한번에 처리하기 위한 변수들
+        let queryResultBuff : queryResult[] = Array.from({length: reqCnt}, (v, i)=>({id: i,requestState: RequestState.end}))
+        if (requestState === RequestState.loading) return
+        setRequestState(RequestState.loading)
+        // query결과 초기화
+        for (let i = 0; i < reqCnt; ++i) {
+            queryResultBuff[i].requestState = RequestState.loading
+            queryResultBuff[i].startTime = Date.now()
+            gqlQueryAll()
+                .then(() => {
+                    // 비정상 코드 : setState(state + 1)을 하면 1번밖에 실행되지 않아서 이렇게 함
+                    responseCnt += 1
+                    queryResultBuff[i].endTime = Date.now()
+                    queryResultBuff[i].elaspedTime = queryResultBuff[i].endTime! - queryResultBuff[i].startTime!
+                    queryResultBuff[i].requestState = RequestState.end
+                })
+                .then(() => {
+                    // 응답이 전부 온 경우
+                    if (responseCnt === reqCnt){
+                        setRequestState(RequestState.end)
+                        setQueryResults(queryResultBuff)
+                        queryResultBuff = []
+                        responseCnt = 0
+                    }
+                })
+                .catch((error) => console.log(error))
+        }
+    }
 
-    return (
-        <Container>
-            <Row >
-                <Col>
-                    <Chart title={"Performance"} data={testData}/>
-                </Col>
-            </Row>
-            <Row>
-                <Col md={{span: 3, offset: 6}}>
-                    <InputRightDesc description="clients" onChange={(e: inputChange) => setClientCnt(e.target.value)} value={clientCnt} />
-                    <InputRightDesc description="requests" onChange={(e: inputChange) => setRequestCnt(e.target.value)} value={requestCnt} />
-                </Col>
-            </Row>
-            <Row>
-                <Col md={{span: 4, offset: 6}}>
-                    <OptionButton options={servers} onChange={(e: buttonChange) => setSelectedServer(e.target.value)} selectedValue={selectedServer}/>
-                </Col>
-                <Col md={{offset:0.1}}>
-                    <Button variant="outline-dark" block onClick={() => {setisRequesting(true)}}>Test</Button>
-                </Col>
-            </Row>
-            client : {clientCnt}, request : {requestCnt}, selectedServer : {servers.find(({value})=>{ return value === selectedServer})?.name}, queryStatus : {isRequesting ? '로딩중' : '끝남'}
-        </Container>
-    )
+return (
+    <Container>
+        <Row >
+            <Col>
+                <Chart title={"Performance"} data={testData} />
+            </Col>
+        </Row>
+        <Row>
+            <Col md={{ span: 3, offset: 6 }}>
+                <InputRightDesc description="clients" onChange={(e: inputChange) => setClientCnt(e.target.value)} value={clientCnt} />
+                <InputRightDesc description="requests" onChange={(e: inputChange) => setRequestCnt(e.target.value)} value={requestCnt} />
+            </Col>
+        </Row>
+        <Row>
+            <Col md={{ span: 4, offset: 6 }}>
+                <OptionButton options={servers} onChange={(e: buttonChange) => setSelectedServer(e.target.value)} selectedValue={selectedServer} />
+            </Col>
+            <Col md={{ offset: 0.1 }}>
+                <Button variant="outline-dark" block onClick={() => { testServer() }}>Test</Button> 
+            </Col>
+        </Row>
+        client : {clientCnt}, request : {requestCnt}, selectedServer : {servers.find(({ value }) => { return value === selectedServer })?.name}, queryStatus : {requestState === RequestState.loading ? '로딩중' : '끝남'}
+        {queryResults.map( result => { return (<p id={String(result.id)}>{result.id} : {result.elaspedTime!}</p>)})}
+    </Container>
+)
 }
 
 export default SingleServer

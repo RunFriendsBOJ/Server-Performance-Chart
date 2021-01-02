@@ -10,7 +10,7 @@ dotenv.config({ path: envPath })
 
 const initDB = async () => {
     const client = await MongoClient.connect(
-        String(process.env.DB_HOST), {
+        process.env.DB_HOST || "mongodb://localhost:27017/study", {
         useUnifiedTopology: true,
         useNewUrlParser: true
     }

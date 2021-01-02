@@ -40,7 +40,7 @@ const start = async () => {
     server.installSubscriptionHandlers(httpServer)
 
     httpServer.timeout = 5000
-    httpServer.listen({ port: process.env.GQL_PORT }, () => {
+    httpServer.listen({ port: process.env.GQL_PORT || 3000 }, () => {
         console.log(`GQL Server Running at http://localhost:${process.env.GQL_PORT}${server.graphqlPath}`)
     })
 }

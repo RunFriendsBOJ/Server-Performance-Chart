@@ -44,7 +44,7 @@
   },
   "scripts": {
     "set": "rm -rf node_modules && npm install yarn && yarn install && cd Models && g++ -o initPost.out initPost.cpp && ./initPost.out && ts-node initDB.ts &&  cd .. && cd config && cd proto && ts-node compile.ts",
-    "start": "pm2 install typescript && cd ./GraphQL && pm2 start server.ts --name GQL && cd ../ProtoBuf && pm2 start server.ts --name ProtoBuf && cd ../REST && pm2 start server.ts --name Rest && cd .. && cd MiddleServer && pm2 start server.ts --name MiddleServer",
+    "start": "pm2 install typescript && cd ./GraphQL && pm2 start server.ts --name GQL && cd ../ProtoBuf && pm2 start server.ts --name ProtoBuf && cd ../REST && pm2 start server.ts --name Rest && cd .. && cd Main && pm2 start server.ts --name MiddleServer",
     "test": "jest"
   },
   "author": "",

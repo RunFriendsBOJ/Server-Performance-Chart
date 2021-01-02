@@ -47,7 +47,7 @@ const protobufTest = () => describe('ProtoBuf Server Test', () => {
         assert(Buffer.isBuffer(buffer))
         const obj = Posts.decode(buffer)
         assert.strictEqual(obj.items[0].id, 1)
-        assert.strictEqual(obj.items.length, 10000)
+        assert.strictEqual(obj.items.length, 1000)
     }, 1000000)
 
 })

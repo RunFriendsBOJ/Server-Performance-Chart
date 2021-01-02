@@ -12,7 +12,7 @@ const agent = new https.Agent({
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
-const protobufTest = () => describe('ProtoBuf Server Test', () => {
+describe('ProtoBuf Server Test', () => {
     it('ProtoBuf Server API TEST-1', async () => {
         const response: any = await fetch(server + '/post/1', {
             agent,
@@ -51,5 +51,3 @@ const protobufTest = () => describe('ProtoBuf Server Test', () => {
     }, 1000000)
 
 })
-
-export { protobufTest }

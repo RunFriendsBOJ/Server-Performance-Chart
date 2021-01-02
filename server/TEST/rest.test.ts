@@ -3,7 +3,7 @@ import fetch from 'node-fetch'
 
 const server = `http://localhost:5000`
 
-const restTest = () => describe('REST Server Test', () => {
+describe('REST Server Test', () => {
     it('REST Server API TEST-1', async () => {
         const response: any = await fetch(server + '/post/1', {
             method: 'GET',
@@ -32,5 +32,3 @@ const restTest = () => describe('REST Server Test', () => {
         assert.strictEqual(data.items.length, 1000)
     }, 1000000)
 })
-
-export { restTest }

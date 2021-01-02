@@ -12,3 +12,12 @@ message Post {
     string content = 3;
     
 }
+
+message User {
+    string id = 1;
+    string email = 2;
+    string organization = 3;
+    uint32 age = 4;
+    string part = 5;
+    repeated string stacks = 6;
+}

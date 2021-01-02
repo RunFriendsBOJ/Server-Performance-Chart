@@ -21,6 +21,7 @@
   "dependencies": {
     "@types/jest": "^26.0.19",
     "apollo-server-express": "^2.19.0",
+    "artillery": "^1.6.1",
     "axios": "^0.21.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -41,8 +42,8 @@
     "**/apollo-server-core/graphql-upload": "^11.0.0"
   },
   "scripts": {
-    "set": "npm install yarn && yarn install && cd Models && g++ -o initPost.out initPost.cpp && ./initPost.out && ts-node initDB.ts",
-    "start": "pm2 install typescript && cd ./GraphQL && pm2 start server.ts --name GQL && cd ../ProtoBuf && pm2 start server.ts --name ProtoBuf && cd ../REST && pm2 start server.ts --name Rest",
+    "set": "rm -rf node_modules && npm install yarn && yarn install && cd Models && g++ -o initPost.out initPost.cpp && ./initPost.out && ts-node initDB.ts &&  cd .. && cd config && cd proto && ts-node compile.ts",
+    "start": "pm2 install typescript && cd ./GraphQL && pm2 start server.ts --name GQL && cd ../ProtoBuf && pm2 start server.ts --name ProtoBuf && cd ../REST && pm2 start server.ts --name Rest && cd .. && cd MiddleServer && pm2 start server.ts --name MiddleServer",
     "test": "jest"
   },
   "author": "",
@@ -50,6 +51,7 @@
   "devDependencies": {
     "@types/express": "^4.17.9",
     "@types/mongodb": "^3.6.3",
+    "@types/node": "^14.14.16",
     "@types/spdy": "^3.4.4"
   }
 }

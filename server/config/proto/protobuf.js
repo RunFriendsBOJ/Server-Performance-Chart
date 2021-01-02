@@ -24,8 +24,16 @@ var Post = exports.Post = {
   decode: null
 }
 
+var User = exports.User = {
+  buffer: true,
+  encodingLength: null,
+  encode: null,
+  decode: null
+}
+
 definePosts()
 definePost()
+defineUser()
 
 function definePosts () {
   Posts.encodingLength = encodingLength
@@ -167,6 +175,137 @@ function definePost () {
         break
         case 3:
         obj.content = encodings.string.decode(buf, offset)
+        offset += encodings.string.decode.bytes
+        break
+        default:
+        offset = skip(prefix & 7, buf, offset)
+      }
+    }
+  }
+}
+
+function defineUser () {
+  User.encodingLength = encodingLength
+  User.encode = encode
+  User.decode = decode
+
+  function encodingLength (obj) {
+    var length = 0
+    if (defined(obj.id)) {
+      var len = encodings.string.encodingLength(obj.id)
+      length += 1 + len
+    }
+    if (defined(obj.email)) {
+      var len = encodings.string.encodingLength(obj.email)
+      length += 1 + len
+    }
+    if (defined(obj.organization)) {
+      var len = encodings.string.encodingLength(obj.organization)
+      length += 1 + len
+    }
+    if (defined(obj.age)) {
+      var len = encodings.varint.encodingLength(obj.age)
+      length += 1 + len
+    }
+    if (defined(obj.part)) {
+      var len = encodings.string.encodingLength(obj.part)
+      length += 1 + len
+    }
+    if (defined(obj.stacks)) {
+      for (var i = 0; i < obj.stacks.length; i++) {
+        if (!defined(obj.stacks[i])) continue
+        var len = encodings.string.encodingLength(obj.stacks[i])
+        length += 1 + len
+      }
+    }
+    return length
+  }
+
+  function encode (obj, buf, offset) {
+    if (!offset) offset = 0
+    if (!buf) buf = Buffer.allocUnsafe(encodingLength(obj))
+    var oldOffset = offset
+    if (defined(obj.id)) {
+      buf[offset++] = 10
+      encodings.string.encode(obj.id, buf, offset)
+      offset += encodings.string.encode.bytes
+    }
+    if (defined(obj.email)) {
+      buf[offset++] = 18
+      encodings.string.encode(obj.email, buf, offset)
+      offset += encodings.string.encode.bytes
+    }
+    if (defined(obj.organization)) {
+      buf[offset++] = 26
+      encodings.string.encode(obj.organization, buf, offset)
+      offset += encodings.string.encode.bytes
+    }
+    if (defined(obj.age)) {
+      buf[offset++] = 32
+      encodings.varint.encode(obj.age, buf, offset)
+      offset += encodings.varint.encode.bytes
+    }
+    if (defined(obj.part)) {
+      buf[offset++] = 42
+      encodings.string.encode(obj.part, buf, offset)
+      offset += encodings.string.encode.bytes
+    }
+    if (defined(obj.stacks)) {
+      for (var i = 0; i < obj.stacks.length; i++) {
+        if (!defined(obj.stacks[i])) continue
+        buf[offset++] = 50
+        encodings.string.encode(obj.stacks[i], buf, offset)
+        offset += encodings.string.encode.bytes
+      }
+    }
+    encode.bytes = offset - oldOffset
+    return buf
+  }
+
+  function decode (buf, offset, end) {
+    if (!offset) offset = 0
+    if (!end) end = buf.length
+    if (!(end <= buf.length && offset <= buf.length)) throw new Error("Decoded message is not valid")
+    var oldOffset = offset
+    var obj = {
+      id: "",
+      email: "",
+      organization: "",
+      age: 0,
+      part: "",
+      stacks: []
+    }
+    while (true) {
+      if (end <= offset) {
+        decode.bytes = offset - oldOffset
+        return obj
+      }
+      var prefix = varint.decode(buf, offset)
+      offset += varint.decode.bytes
+      var tag = prefix >> 3
+      switch (tag) {
+        case 1:
+        obj.id = encodings.string.decode(buf, offset)
+        offset += encodings.string.decode.bytes
+        break
+        case 2:
+        obj.email = encodings.string.decode(buf, offset)
+        offset += encodings.string.decode.bytes
+        break
+        case 3:
+        obj.organization = encodings.string.decode(buf, offset)
+        offset += encodings.string.decode.bytes
+        break
+        case 4:
+        obj.age = encodings.varint.decode(buf, offset)
+        offset += encodings.varint.decode.bytes
+        break
+        case 5:
+        obj.part = encodings.string.decode(buf, offset)
+        offset += encodings.string.decode.bytes
+        break
+        case 6:
+        obj.stacks.push(encodings.string.decode(buf, offset))
         offset += encodings.string.decode.bytes
         break
         default:

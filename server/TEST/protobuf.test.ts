@@ -33,7 +33,6 @@ describe('ProtoBuf Server Test', () => {
 
         const buffer = await response.buffer()
         assert.strictEqual(response.status, 200)
-        assert(Buffer.isBuffer(buffer))
         const obj = Post.decode(buffer)
         assert.strictEqual(obj.id, 1000)
     })

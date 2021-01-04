@@ -8,9 +8,10 @@ const port = process.env.MID_SERVER || 7777
 const app = express()
 
 const corsOptions = {
-    origin: '*',
+    origin: 'http://localhost:3030',
     method: "POST",
-    optionsSuccessStatus: 200
+    optionsSuccessStatus: 200,
+    credentials: true,
 }
 app.use(cors(corsOptions))
 app.use(bodyParser.urlencoded({ extended: false }))

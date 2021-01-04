@@ -1,0 +1,117 @@
+{
+  "aggregate": {
+    "timestamp": "2021-01-04T13:46:44.587Z",
+    "scenariosCreated": 8,
+    "scenariosCompleted": 8,
+    "requestsCompleted": 32,
+    "latency": {
+      "min": 4.9,
+      "max": 21.3,
+      "median": 6.5,
+      "p95": 18.4,
+      "p99": 21.3
+    },
+    "rps": {
+      "count": 32,
+      "mean": 14.41
+    },
+    "scenarioDuration": {
+      "min": 31.7,
+      "max": 119.9,
+      "median": 44.5,
+      "p95": 119.9,
+      "p99": 119.9
+    },
+    "scenarioCounts": {
+      "0": 8
+    },
+    "errors": {},
+    "codes": {
+      "200": 32
+    },
+    "matches": 0,
+    "customStats": {},
+    "counters": {},
+    "scenariosAvoided": 0,
+    "phases": [
+      {
+        "duration": "2",
+        "arrivalRate": "4",
+        "mode": "uniform"
+      }
+    ]
+  },
+  "intermediate": [
+    {
+      "timestamp": "2021-01-04T13:46:44.585Z",
+      "scenariosCreated": 8,
+      "scenariosCompleted": 8,
+      "requestsCompleted": 32,
+      "latency": {
+        "min": 4.9,
+        "max": 21.3,
+        "median": 6.5,
+        "p95": 18.4,
+        "p99": 21.3
+      },
+      "rps": {
+        "count": 32,
+        "mean": 14.41
+      },
+      "scenarioDuration": {
+        "min": 31.7,
+        "max": 119.9,
+        "median": 44.5,
+        "p95": 119.9,
+        "p99": 119.9
+      },
+      "scenarioCounts": {
+        "0": 8
+      },
+      "errors": {},
+      "codes": {
+        "200": 32
+      },
+      "matches": 0,
+      "latencies": [
+        21304333,
+        6891584,
+        6262000,
+        6624417,
+        14411708,
+        12154125,
+        8964917,
+        9179833,
+        18666917,
+        12454167,
+        12571834,
+        6209708,
+        6427709,
+        5727250,
+        5432042,
+        5879917,
+        6089791,
+        5711000,
+        5922084,
+        4912625,
+        6072958,
+        6328375,
+        4864375,
+        4886542,
+        6853041,
+        5542708,
+        6555167,
+        5488875,
+        15563792,
+        12491458,
+        9084791,
+        8249875
+      ],
+      "customStats": {},
+      "counters": {},
+      "concurrency": 0,
+      "pendingRequests": 0,
+      "scenariosAvoided": 0
+    }
+  ]
+}

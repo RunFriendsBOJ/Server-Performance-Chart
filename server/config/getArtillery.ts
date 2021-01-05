@@ -5,6 +5,7 @@ import { readFileSync } from 'fs'
 import path from 'path'
 
 const logPath = path.join(__dirname)
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"
 
 const artillery = async (req: Request, res: Response, type: String) => {
     const db = await mongodb().get()

@@ -4,7 +4,6 @@ const server = `http://localhost:7777`
 const restServer = `http://localhost:5000`
 const protoServer = `https://localhost:4000`
 
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 describe(`Main Server Test`, () => {
     it(`REST Artillery Test-1`, async () => {

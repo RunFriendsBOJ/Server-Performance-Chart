@@ -8,7 +8,7 @@ const port = process.env.MID_SERVER || 7777
 const app = express()
 
 const corsOptions = {
-    origin: 'http://localhost:3030',
+    origin: '*',
     method: "POST",
     optionsSuccessStatus: 200,
     credentials: true,

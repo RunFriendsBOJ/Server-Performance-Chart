@@ -1,34 +1,34 @@
 {
   "aggregate": {
-    "timestamp": "2021-01-04T18:20:47.246Z",
+    "timestamp": "2021-01-04T20:13:01.256Z",
     "scenariosCreated": 8,
-    "scenariosCompleted": 0,
-    "requestsCompleted": 0,
+    "scenariosCompleted": 8,
+    "requestsCompleted": 32,
     "latency": {
-      "min": null,
-      "max": null,
-      "median": null,
-      "p95": null,
-      "p99": null
+      "min": 1.3,
+      "max": 6.7,
+      "median": 1.6,
+      "p95": 3.8,
+      "p99": 6.7
     },
     "rps": {
-      "count": 8,
-      "mean": 3.59
+      "count": 32,
+      "mean": 14.35
     },
     "scenarioDuration": {
-      "min": null,
-      "max": null,
-      "median": null,
-      "p95": null,
-      "p99": null
+      "min": 12.9,
+      "max": 56.4,
+      "median": 15.4,
+      "p95": 56.4,
+      "p99": 56.4
     },
     "scenarioCounts": {
       "0": 8
     },
-    "errors": {
-      "DEPTH_ZERO_SELF_SIGNED_CERT": 8
+    "errors": {},
+    "codes": {
+      "200": 32
     },
-    "codes": {},
     "matches": 0,
     "customStats": {},
     "counters": {},
@@ -43,41 +43,74 @@
   },
   "intermediate": [
     {
-      "timestamp": "2021-01-04T18:20:47.245Z",
+      "timestamp": "2021-01-04T20:13:01.254Z",
       "scenariosCreated": 8,
-      "scenariosCompleted": 0,
-      "requestsCompleted": 0,
+      "scenariosCompleted": 8,
+      "requestsCompleted": 32,
       "latency": {
-        "min": null,
-        "max": null,
-        "median": null,
-        "p95": null,
-        "p99": null
+        "min": 1.3,
+        "max": 6.7,
+        "median": 1.6,
+        "p95": 3.8,
+        "p99": 6.7
       },
       "rps": {
-        "count": 8,
-        "mean": 3.59
+        "count": 32,
+        "mean": 14.41
       },
       "scenarioDuration": {
-        "min": null,
-        "max": null,
-        "median": null,
-        "p95": null,
-        "p99": null
+        "min": 12.9,
+        "max": 56.4,
+        "median": 15.4,
+        "p95": 56.4,
+        "p99": 56.4
       },
       "scenarioCounts": {
         "0": 8
       },
-      "errors": {
-        "DEPTH_ZERO_SELF_SIGNED_CERT": 8
+      "errors": {},
+      "codes": {
+        "200": 32
       },
-      "codes": {},
       "matches": 0,
-      "latencies": [],
+      "latencies": [
+        6720372,
+        1478576,
+        1487086,
+        1383046,
+        3779537,
+        1758236,
+        1479446,
+        1377348,
+        3445680,
+        1638151,
+        1549988,
+        1486391,
+        2868813,
+        1263484,
+        1467538,
+        1322760,
+        3547840,
+        1976079,
+        1632511,
+        2396605,
+        3494930,
+        1564651,
+        1432921,
+        1565240,
+        3632496,
+        1373104,
+        1270579,
+        1658908,
+        3095674,
+        1335061,
+        1281710,
+        1283979
+      ],
       "customStats": {},
       "counters": {},
       "concurrency": 0,
-      "pendingRequests": 8,
+      "pendingRequests": 0,
       "scenariosAvoided": 0
     }
   ]

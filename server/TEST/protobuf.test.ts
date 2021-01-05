@@ -6,16 +6,11 @@ import https from "https"
 const { Posts, Post } = require('../config/proto/protobuf')
 const server = `https://localhost:4000`
 
-const agent = new https.Agent({
-    rejectUnauthorized: false
-});
-
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 describe('ProtoBuf Server Test', () => {
     it('ProtoBuf Server API TEST-1', async () => {
         const response: any = await fetch(server + '/post/1', {
-            agent,
             method: 'GET',
         })
         const buffer = await response.buffer()
@@ -27,7 +22,6 @@ describe('ProtoBuf Server Test', () => {
 
     it(`ProtoBuf Server API TEST-2`, async () => {
         const response = await fetch(server + "/post/1000", {
-            agent,
             method: 'GET'
         })
 
@@ -39,7 +33,6 @@ describe('ProtoBuf Server Test', () => {
 
     it('ProtoBuf Server API TEST-3', async () => {
         const response = await fetch(server + "/post/all", {
-            agent,
             method: 'GET'
         })
         const buffer = await response.buffer()

@@ -1,4 +1,4 @@
-import { Db, MongoClient } from 'mongodb'
+import { MongoClient } from 'mongodb'
 import dotenv from 'dotenv'
 import path from 'path'
 import fs from 'fs'

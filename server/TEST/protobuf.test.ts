@@ -1,10 +1,9 @@
 import assert from 'assert'
 import fetch from 'node-fetch'
-import https from "https"
 
 
 const { Posts, Post } = require('../config/proto/protobuf')
-const server = `https://localhost:4000`
+const server = `http://localhost:4000`
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
